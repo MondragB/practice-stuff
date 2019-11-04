@@ -1,0 +1,104 @@
+---
+title: "Kaggle: StackSample: 10% of Stack Overflow Q&A"
+author: "Bryant Mondragon"
+date: "November 23, 2018"
+output: html_document
+---
+###Introduction to data
+This is a dataset that is organized as three tables:
+
+1. Questions contains the title, body, creation date, closed date (if applicable), score, and owner ID for all non-deleted Stack Overflow questions whose Id is a multiple of 10.
+
+2. Answers contains the body, creation date, score, and owner ID for each of the answers to these questions. The ParentId column links back to the Questions table.
+
+3. Tags contains the tags on each of these questions
+
+In this file, I will try to explore the 10% Stackoverflow Dataset. It contains thousands of questions and answer sessions in Stackoverflow.
+
+```{r}
+library(readr)
+Answers <- read_csv("C:\\Users\\Bryant\\Documents\\VSCode\\R\\project\\stacksample\\Answers.csv")
+head(Answers)
+Questions <- read_csv("C:\\Users\\Bryant\\Documents\\VSCode\\R\\project\\stacksample\\Questions.csv")
+head(Questions)
+Tags <- read_csv("C:\\Users\\Bryant\\Documents\\VSCode\\R\\project\\stacksample\\Tags.csv")
+head(Tags)
+```
+
+### Summaries and Tables of Questions and Answers portion
+
+The data set of StackOverflow that shows up in our workspace is a data frame but it is very large so it will not display properly so I will be showing just the beginning of the dataset. Each row represents a different question and each column representing a variable to which the question is broken down into. Some examples are ceation date, title of the question and the body of the question. 
+
+This allows us to view the names of the variables.
+```{r}
+names(Answers)
+names(Questions)
+names(Tags)
+```
+
+Here we can see roughly how great the answers that people gave were. People who are rated below 0 would be considered "bad" answers while those above are "correct/good" answers
+
+```{r}
+summary(Answers$Score)
+table(Answers$Score > 0 )
+```
+
+By ploting the table we are able to better see the results, it is clear that while people attempt to help those that need, some people will still give out incorrect information which is something to keep an eye out especially when using such a popular site such as Stack Overflow.
+```{r}
+barplot(table(Answers$Score > 0), main="Answers",
+  xlab="Number of Answers", ylab="Score", col = c("#ff0000","#0000ff"))
+```
+
+The first questions ever recorded on the Stack Overflow website is from the date of September 01, 2008. 
+
+```{r}
+min(Questions$CreationDate)
+Questions[Questions$CreationDate <= "2008-08-01 13:57:07",c('Title','Body')]
+```
+
+Since Stack Overflow did not actually release to the public until September 15, 2008 it is safe to say that they kept record of all their previous questions and answers if they got one. 
+
+Here is the latest question from when this dataset was created:
+
+The first questions to get an answer took a little under an 1 hour to get a response:
+```{r}
+min(Answers$Id)
+firstAnswer <- Answers[which(Answers$Id=='92'),]
+firstAnswer
+```
+
+Here is the last question that they took before creating the dataset, can you solve it?
+
+```{r}
+max(Questions$Id)
+lastQuestion <- Questions[which(Questions$Id=='40143380'),]
+lastQuestion
+```
+As you can, see it wasn't a very good question.
+
+Here we can see the total question that were left unanswered:
+```{r}
+sum(is.na(Questions$ClosedDate))
+```
+That is a little over 95% of these questions!
+More things to note is that the answers given can refer to multiple in one question.
+
+### Analyzing 'Tag'
+Here we can see that out of about 3.750 Million tags only a small fraction of them were unique, according to the table below.
+
+```{r}
+df <- Tags[!duplicated(Tags$Tag),]
+df
+```
+```{r}
+tb <- table(Tags$Tag)
+head(tb)
+```
+Since this dataset is so large, RStudio cannot actually output all the different but, if we were to put into a table we would be able to Map out how many times a certain tag appears. Ideally we would plot this data in addition to its date to figure out how popular something became over time.
+```{r}
+plot(table(Tags$Tag))
+```
+
+### Conclusions
+
+Based on this dataset, it is has been very useful in attempting to see what kind of website Stack Overflow is, alot of the questions that were selected for this data set were left unaswered but I do believe that this is because most of the questions date from a very long time when the Internet was still very young and sites like this would have been less popular. Looking at the tags, it seens that there has been a trend in answering questions that are much more specific in nature. We can use this information to possibly predict whether the question will be answered based on their text. There can also be a possibility in predicting how long questions will take to answer. 

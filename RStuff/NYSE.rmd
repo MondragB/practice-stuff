@@ -1,0 +1,89 @@
+---
+title: "Kaggle: New York Stock Exchange"
+author: "Bryant Mondragon"
+date: "November 24, 2018"
+output: html_document
+---
+###Introduction to data
+
+Content
+Dataset consists of following files:
+
+These are the SEC (Securities & Exchange) 10k annual fillings (2012-2016)
+
+prices.csv: raw, as-is daily prices. Most of data spans from 2010 to the end 2016, for companies new on stock market date range is shorter. There have been approx. 140 stock splits in that time, this set doesn't account for that.
+
+prices-split-adjusted.csv: same as prices, but there have been added adjustments for splits.
+
+securities.csv: general description of each company with division on sectors
+
+Acknowledgements
+Prices were fetched from Yahoo Finance, fundamentals are from Nasdaq Financials, extended by some fields from EDGAR SEC databases.
+
+```{r}
+library(quantmod)
+library(dplyr)
+library(ggplot2)
+library(Quandl)
+nyse<-read.table("C:\\Users\\Bryant\\Documents\\VSCode\\R\\project\\nyse\\prices.csv",header = TRUE,sep=",")
+securities <- read.table("C:\\Users\\Bryant\\Documents\\VSCode\\R\\project\\nyse\\securities.csv",header = TRUE,sep=",")
+```
+
+Lets Find the structure of the Stock Table!
+```{r}
+head(nyse)
+```
+
+```{r}
+unique(nyse$symbol)
+```
+
+It seems to have 10,521 Unique levels! (Companies Abbreviations)
+
+```{r}
+# Here we extract the data for Google
+google <- subset(nyse,symbol=="GOOG")
+google[1:3,]
+
+# We then create a vector called close in order to give a better way to graph.
+close <- google$close
+close[1:3] 
+```
+Time to plot:
+
+```{r}
+#Line Graph
+plot(close, type="l",xlab = "days",ylab = "Closing Price",main="Plotting Line Chart of Google stock")
+
+#Calculating Arthmatic daily return
+returns<-(close[1:(length(close)-1)]-close[2:length(close)])/close[2:length(close)]
+
+#Plot Daily return into a chart
+plot(returns,type = "l",xlab = "Google",main="Plotting daily returns of Google stock")
+
+#Creating a OHLC from the excel data to create a candlestick chart.
+ohlc<-google[c("date","open","high","low","close","volume")]
+head(ohlc)
+```
+
+Lets try another Company, IBM.
+```{r}
+ibmstock <- subset(nyse, symbol =='IBM')
+
+
+#Lets Plot the IBM Daily Stock Price
+plot.ts(ibmstock$close, col="blue", type="o", ylab = "IBM Stocks price in $", 
+        xlab = "Days", main = "IBM daily Stock Price",  cex = .8)
+```
+
+We can do some other cool things such as getting the summary for the entire dataset which is pretty neat.
+
+```{r}
+summary(nyse)
+summary(nyse$open)
+summary(nyse$close)
+```
+
+### Conclusions
+
+In conclusion this is also a pretty powerful dataset to analyze. With a bit more time and domain knowledge you could do lots of things such as maybe attempting to do one day ahead predictions by using things such as Linear Regression and Neural Networks; you can also try to figure out which company has the biggest chance of being backrupt, which ones is/are undervalued and much more. This dataset gives us alot of information on each of the companies which we could also use to track any major changes and possible link them to events in the real world which could have made a significant impact.
