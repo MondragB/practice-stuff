@@ -1,0 +1,319 @@
+<?php
+// Import PHPMailer classes into the global namespace
+// These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+require_once('mysqli_connect.php');
+
+if(isset($_POST['submit'])) {
+    
+    $phonenumber = filter_var($_POST['phonenumber'], FILTER_SANITIZE_STRING);
+    $age = filter_var($_POST['studentAge'], FILTER_SANITIZE_STRING);
+    $studentName = filter_var($_POST['studentName'], FILTER_SANITIZE_STRING);
+    $location = filter_var($_POST['location'], FILTER_SANITIZE_STRING);
+    $lesson = filter_var($_POST['lesson'], FILTER_SANITIZE_STRING);
+    $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+	$message = filter_var($_POST['message'], FILTER_SANITIZE_STRING);
+	$today = date("Y-m-d H:i:s");
+
+    $sql = "INSERT INTO Customers (studentName, studentAge, Name, Email, phoneNumber, Location, Lesson, Message, TimeStamp) VALUES ('$studentName', '$age','$name','$email','$phonenumber','$location',' $lesson','$message','$today')";
+    $result = mysqli_query($dbc, $sql) or die(mysqli_error($dbc));
+
+    $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+    try {
+        //Server settings
+        $mail->SMTPDebug = 0;                                 // Enable verbose debug output
+        $mail->isSMTP();                                      // Set mailer to use SMTP
+        $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+        $mail->SMTPAuth = true;                               // Enable SMTP authentication
+        $mail->Username = 'informationsystemsproject2017@gmail.com';                 // SMTP username
+        $mail->Password = 'maxandrahul';                           // SMTP password
+        $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = 587;                                    // TCP port to connect to
+    
+        //Recipients
+        $mail->setFrom(strval($email), strval($name));
+        $mail->addAddress('informationsystemsproject2017@gmail.com', 'PyRock');     // Add a recipient
+       
+
+        // $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = 'Message From Customer';
+        $mail->Body    = "Location: $location\nLesson: $lesson\nFrom: $name\nStudent Name: $studentName\nStudent Age: $age\nEmail: $email\nPhone Number: $phonenumber\nMessage: $message\n";
+        $mail->send();
+       $message = 'Message has been sent';
+    } 
+    
+    catch (Exception $e) {
+        $message = 'Message could not be sent. Mailer Error:';
+    } 
+}
+
+?>
+
+
+<!DOCTYPE HTML>
+<!--
+	Helios by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<title>PY Rock | Contact Information</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<link rel="stylesheet" href="./assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="./assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="no-sidebar is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header">
+
+					<!-- Inner -->
+						<div class="inner">
+							<header>
+								<h1><a href="./index.html" id="logo">Contact</a></h1>
+							</header>
+						</div>
+
+					<!-- Nav -->
+                    <nav id="nav">
+                        <ul>
+                            <li><a href="./index.html">Home</a></li>
+                            <li>
+                                <a href="#">Music Lessons</a>
+                                <ul>
+                                    <li><a href="./music_lessons/ML-complete.html">Overview</a></li>
+                                    <li><a href="./music_lessons/ML-complete.html#guitar" class="scrolly">Guitar Lessons</a></li>
+                                    <li><a href="./music_lessons/ML-complete.html#bass" class="scrolly">Bass Lessons</a></li>
+                                    <li><a href="./music_lessons/ML-complete.html#sing" class="scrolly">Singing Lessons</a></li>
+                                    <li><a href="./music_lessons/ML-complete.html#piano" class="scrolly">Piano Lessons</a></li>
+                                    <li><a href="./music_lessons/ML-complete.html#drums" class="scrolly">Drum Lessons</a></li>
+                                    <li><a href="./music_lessons/ML-complete.html#violin" class="scrolly">Violin Lessons</a></li>
+                                    <li><a href="./music_lessons/ML-complete.html#ukulele" class="scrolly">Ukulele Lessons</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Music Programs</a>
+                                <ul>
+                                    <li><a href="./music_programs/MP-complete.html">Overview</a></li>
+                                    <li><a href="./music_programs/MP-complete.html#rb" class="scrolly">Rock Bands</a></li>
+                                    <li><a href="./music_programs/MP-complete.html#gl" class="scrolly">Group Lessons</a></li>
+                                    <li><a href="./music_programs/MP-complete.html#pl" class="scrolly">Private Lessons</a></li>
+                                    <li><a href="./music_programs/MP-complete.html#prb" class="scrolly">Pre-Rock Bands</a></li>
+                                    <li><a href="./music_programs/MP-complete.html#hb" class="scrolly">House Bands</a></li>
+                                    <li><a href="./music_programs/MP-complete.html#bc" class="scrolly">Break Camps</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="./contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+
+				</div>
+
+			<!-- Main -->
+			<div class="wrapper style1">
+
+					<div class="container">
+						<article id="main" class="special">
+							<header>
+								<h2><a href="#">Additonal Information Form</a></h2>
+							</header> 
+
+
+							<!--
+								Collapseable form with a div element
+							-->
+
+
+
+							<form action="contact.php" method="post">
+								<input type="text" name="studentName" placeholder="Student Name:">
+								<input type="text" name="studentAge" required placeholder="Student Age:">
+								<input type="text" name="name" required placeholder="Your Name:">
+								<input type="email" name="email" required placeholder="Email:">
+								<input type="text" name="phonenumber" required placeholder="Phone Number:">
+								<select name="location"required>
+								<option value="" disabled selected>Select Location</option>
+								<option value="Elizabeth">Elizabeth</option>
+								<option value="West New York">West New York</option>
+								</select>
+								<select name="lesson"required>
+								<option value="" disabled selected>Select Lesson</option>
+								<option value="Bass">Bass</option>
+								<option value="Drum">Drum</option>
+								<option value="Guitar">Guitar</option>
+								<option value="Singing">Singing</option>
+								<option value="Piano">Piano</option>
+								<option value="Ukulele">Ukulele</option>
+								<option value="Violin">Violin</option>
+								</select>
+								<input type="text"  name="message" required placeholder="Message">
+								<br>
+								<button type="submit" name="submit" class="btn btn-primary">Send Message</button>
+								</form>
+								<br>
+								<p><?php echo "$message"; ?></p>
+								<hr />
+
+
+
+							<div>
+								<h2>Many Locations!</h2>
+<br>
+								<p>P.Y. Rock is commited to expanding our locations so that <em>everyone</em> can find themselves participating in our programs locally.</p>
+
+								<section>
+									<header>
+										<h3>Elizabeth Location!</h3>
+									</header>
+									<p>
+									 TELEPHONE: +1 908 469 7838 <br>
+									 E-MAIL: CONTACT@PYROCKMUSICSCHOOL.COM<br>
+									 310 Morris Ave #204<br>
+									 Elizabeth, NJ 07208
+									</p>
+								
+									<p>
+										Our location in Elizabeth NJ is in the heart of a very diverse community. Walking distance away from major highways and a NJ Transit train station, making your commute simpler. We like to host nearby events, so that our bands have the opportunity to perform for the community, at the many different venues and festivals. 
+									</p>
+									<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3026.225081277138!2d-74.22030608509702!3d40.66900934818229!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c3b2aaacbd7f9f%3A0xb5f7e563cde921c6!2sPY+Rock+Music+School!5e0!3m2!1sen!2sus!4v1542434330571" width="100%" height="600" frameborder="0" style="border:0" allowfullscreen>	
+									</iframe>
+								</section>
+
+
+										<section>
+									<header>
+										<h3>COMING SOON: West New York Location!</h3>
+									</header>
+									<p>
+									 TELEPHONE: +1 908 469 7838 <br>
+									 E-MAIL: CONTACT@PYROCKMUSICSCHOOL.COM<br>
+									</p>
+									<p>
+										P.Y. Rock is expanding to the vibrant city of West New York, NJ ! If you would like to become one of or new students at our school please fill out the conact form so that we can get a rep in touch with you.    
+									</p>
+									<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24167.470519294206!2d-74.02575799072936!3d40.78546917671724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c258131938b8d5%3A0xe39c30a8afef2d96!2sWest+New+York%2C+NJ+07093!5e0!3m2!1sen!2sus!4v1542433645965" width="100%" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
+								</section>
+
+							</div>
+
+							<hr />
+
+
+							<a href="#" class="image featured"><img src="images/pic06_LocalEvents.jpg" alt=" Local Events in near by areas. Elizabeth NJ and West New York" /></a>
+
+							<section>
+								<header>
+									<h3>Every season, the rock band's members take the stage and play at local music venues and festivals!
+									</h3>
+								</header>
+								<p>
+									We love to encourage our bands to reach out to the community and gain the experience they need to play on stages all over. Our Students participate in open mic events and seasonal concerts. 
+								</p>
+							</section>
+						</article>
+					<br>
+
+
+						<div class="row">
+							<article class="col-4 col-12-mobile special">
+								
+
+
+								 <a href="https://www.youtube.com/watch?v=PWBGHKj6RoY&list=PLMl6PrkYZDafo4HfejQzMFVjphyrNabCR"  class="image featured" target="_blank">
+								<img alt="Local performance during Spring " src="images/pic07_concert.jpg" ></a>
+
+								<header>
+									<h3><a href="#">Spring Break Camp</a></h3>
+								</header>
+								
+							</article>
+
+
+							<article class="col-4 col-12-mobile special">
+								
+
+
+								 <a href="https://www.youtube.com/watch?v=mr-mR-pS4E4&list=PLMl6PrkYZDaer1rRqiB-E_Lsd-TUW0ffL"  class="image featured" target="_blank">
+								<img alt="Local Open Mic performance" src="images/pic08_Mic.jpg" ></a>
+
+								<header>
+									<h3><a href="#">Open Mic</a></h3>
+								</header>
+								
+							</article>
+
+
+									<article class="col-4 col-12-mobile special">
+
+								 <a href="https://www.youtube.com/watch?v=S_OvFHOe4OU&list=PLMl6PrkYZDac0tTleAjh73SFYqB5GRJpV"  class="image featured" target="_blank">
+								<img alt="Local performance" src="images/pic09_Crowd.jpg" ></a>
+
+								<header>
+									<h3><a href="#">Concerts</a></h3>
+								</header>
+								
+							</article>
+
+
+						</div>
+					</div>
+
+				</div>
+			<!-- Footer -->
+				<div id="footer">
+					<div class="container">
+
+						<div class="row">
+							<div class="col-12">
+
+							<!-- Some contact links-->
+							<section class="contact">
+								<header>
+									<h3>Have some question?</h3>
+								</header>
+								<p>Follow us on all our social media for regular updates!</p>
+								<ul class="icons">
+									<li><a href="https://twitter.com/pyrockmusic" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="https://www.facebook.com/pyrockmusicschool" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+									<li><a href="https://www.instagram.com/pyrockmusicschool/" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="https://www.youtube.com/channel/UCpjtNbwC_S18jGT8OuLrgbA" class="icon fa-youtube"><span class="label">Youtube</span></a></li>
+								</ul>
+							</section>
+
+								<!-- Copyright -->
+								<div class="copyright">
+									<ul class="menu">
+										<li>&copy; PY Rock LLC. All rights reserved.</li><li>Design: CPS4301*02 Fall 2018 Students</li><li><a href="http://html5up.net">HTML5 UP</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+
+		<!-- Scripts -->
+			<script src="./assets/js/jquery.min.js"></script>
+			<script src="./assets/js/jquery.dropotron.min.js"></script>
+			<script src="./assets/js/jquery.scrolly.min.js"></script>
+			<script src="./assets/js/jquery.scrollex.min.js"></script>
+			<script src="./assets/js/browser.min.js"></script>
+			<script src="./assets/js/breakpoints.min.js"></script>
+			<script src="./assets/js/util.js"></script>
+			<script src="./assets/js/main.js"></script>
+
+	</body>
+</html>

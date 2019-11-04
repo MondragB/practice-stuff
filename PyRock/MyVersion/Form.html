@@ -1,0 +1,150 @@
+<div class="centerContainer ">
+   <div id="formDiv">
+      <div id="logo-wallpaper" class="fLogowall" style="display:none"><img id="logo-wallpaper-img" src=""></div>
+      <div id="fileuploadtemplate" style="display:none"></div>
+      <form name="test" id="test">
+         <input type="hidden" name="formName" value="ContactForm" id="formName"><!-- Form Perma will be sent only for PermaUrls -->
+         <input type="hidden" name="formPerma" value="wthkl0SBHoTgAewTXDjBW1cc6jlwfy3Xfy_KEWoWXYI" id="formPerma"><input type="hidden" name="referrerName" id="referrerName" value="null"><input type="hidden" name="isPaymentForm" value="false" id="isPaymentForm"><input type="hidden" name="formType" value="0" id="formType">
+         <input type="hidden" id="zf_date_format" datelocale="en-GB" name="date_format" value="dd-MMM-yyyy"><input type="hidden" name="isDocsPublicForm" value="false" id="isDocsPublicForm">
+         <input type="hidden" name="formrid" value="" id="formrid">
+         <div class="templateWrapper" id="formRedirectURL">
+            <ul class="tempHeadBdr formRelative">
+               <li class="tempHeadContBdr">
+                  <span id="logo-formheader" class="formLogo" style="display: none"><img id="logo-formheader-img" src=""></span> 
+                  <h2 class="frmTitle"><em>SCHEDULE A FREE CLASS</em></h2>
+                  <p class="frmDesc"></p>
+                  <div class="clearBoth"></div>
+               </li>
+            </ul>
+            <!-- 'FieldElement' class is imported in order to get the key for display name of the component of 'Address' field.
+               'FormField' class is used to get field type of Zoho CRM field.-->
+            <div id="formBodyDiv" class="formRelative subContWrap topAlign">
+               <ul elname="formBodyULName" class="ulNoStyle" page_no="1" needpagedata="true">
+                  <!-- i) Private form, ii) Perma, iii) Shared form, iv) Theme preview, v) Current Theme -->
+                  <!-- "isVisible"="false": This 'Admin Only' field must not be shown to user. -->
+                  <!-- "isVisible"="true": Case 1: This is not an 'Admin Only' field. Case 2: This 'Admin Only' field must be shown to user. -->
+                  <!-- Theme Preview, Current Theme - Admin Only fields will be shown. Formula won't be calculated. Field Rules won't be executed. -->				
+                  <!-- formMetaData.key=Field link name -->
+                  <!-- Zoho CRM field : "FIELD_LIST" key won't be present. -->
+                  <li class="tempFrmWrapper name namemedium" elname="livefield-elem" comptype="7" needdata="true" id="Name-li" compname="Name" isvisible="true" mandatory="true" page_no="1" page_link_name="first">
+                     <label class="labelName">Full name
+                     <em class="important">*</em>
+                     </label>
+                     <div class="tempContDiv">
+                        <div>
+                           <span>
+                              <input type="text" maxlength="255" elname="first" name="Name_First" value="" invlovedinsalesiq="false" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+                              <!-- Display name of 'First' component of 'Name' field. -->
+                              <label class="formSubInfoText">First</label> 
+                           </span>
+                           <span class="last">
+                              <input type="text" maxlength="255" elname="last" name="Name_Last" value="" invlovedinsalesiq="false">
+                              <!-- Display name of 'Last' component of 'Name' field. -->
+                              <label class="formSubInfoText">Last</label> 
+                           </span>
+                           <div class="clearBoth"></div>
+                        </div>
+                        <p class="errorMessage" elname="error" id="error-Name"></p>
+                     </div>
+                     <div class="clearBoth"></div>
+                  </li>
+                  <li class="tempFrmWrapper small" elname="livefield-elem" comptype="9" id="Email-li" needdata="true" compname="Email" isvisible="true" mandatory="true" page_no="1" page_link_name="first" allowed_domain_name="">
+                     <label class="labelName">Email
+                     <em class="important">*</em>
+                     </label>
+                     <div class="tempContDiv">
+                        <span> <input type="text" maxlength="255" name="Email" value="" invlovedinsalesiq="false"></span>
+                        <p class="errorMessage" elname="error" id="error-Email"></p>
+                     </div>
+                     <div class="clearBoth"></div>
+                     <div class="clearBoth"></div>
+                  </li>
+                  <li class="tempFrmWrapper phone small" elname="livefield-elem" comptype="11" id="PhoneNumber-li" needdata="true" compname="PhoneNumber" isvisible="true" mandatory="true" page_no="1" page_link_name="first">
+                     <label class="labelName">Phone
+                     <em class="important">*</em>
+                     </label>
+                     <div class="tempContDiv" elname="phoneFormatElem" phoneformat="INTERNATIONAL">
+                        <div>
+                           <input type="text" name="countrycode" elname="countrycode" maxlength="20" invlovedinsalesiq="false" value="">
+                           <div class="clearBoth"></div>
+                        </div>
+                        <p class="errorMessage" elname="error" id="error-PhoneNumber"></p>
+                     </div>
+                     <div class="clearBoth"></div>
+                  </li>
+                  <li class="tempFrmWrapper small" elname="livefield-elem" comptype="12" id="Dropdown-li" needdata="true" compname="Dropdown" isvisible="true" mandatory="true" page_no="1" page_link_name="first">
+                     <label class="labelName">Instrument
+                     <em class="important">*</em>
+                     </label>
+                     <div class="tempContDiv">
+                        <div class="form_sBox">
+                           <div class="customArrow"></div>
+                           <select name="Dropdown">
+                              <option selected="true" value="-Select-">-Select-</option>
+                              <option value="Guitar" formula_val="">Guitar</option>
+                              <option value="Bass" formula_val="">Bass</option>
+                              <option value="Vocal" formula_val="">Vocal</option>
+                              <option value="Piano" formula_val="">Piano</option>
+                              <option value="Drums" formula_val="">Drums</option>
+                           </select>
+                        </div>
+                        <div elname="liveFieldTempChoiceCont" style="display: none;"></div>
+                        <p class="errorMessage" elname="error" id="error-Dropdown"></p>
+                     </div>
+                     <div class="clearBoth"></div>
+                  </li>
+                  <li class="tempFrmWrapper large" elname="livefield-elem" comptype="2" id="MultiLine-li" needdata="true" compname="MultiLine" isvisible="true" mandatory="true" page_no="1" page_link_name="first">
+                     <label class="labelName">Leave us a few words
+                     <em class="important">*</em>
+                     </label>
+                     <div class="tempContDiv">
+                        <span> <textarea name="MultiLine"></textarea></span>
+                        <p class="errorMessage" elname="error" id="error-MultiLine"></p>
+                     </div>
+                     <div class="clearBoth"></div>
+                  </li>
+               </ul>
+            </div>
+            <ul elname="footer" class="footerWrapper formRelative" page_no="1" page_count="1" page_link_name="first">
+               <li style="overflow:visible; position: relative;" class="btnAllign fmFooter" id="formAccess" elname="0">
+                  <div class="pageFotDef">
+                     <div class="alignSubmit">
+                        <div class="formRelative inlineBlock submitWrapper"><button class="fmSmtButton submitColor fmSmtButtom" elname="submit" value="submit">
+                           <em>SUBMIT</em>
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="clearBoth"></div>
+               </li>
+            </ul>
+            <div id="popupdiv" class="dim-div2" style="display:none;">
+               <div id="imageChoiceDiv-cont" class="popUpOuter imageTypeZoom">
+                  <div class="popUpInnerWrapper">
+                     <div class="popupHeader removeBdr">
+                        <a class="flRight ppDeleteIcon" onclick="ZFLive.hideZoomedImage();" href="javascript:;"></a>
+                        <div class="clearBoth"></div>
+                     </div>
+                     <div class="popupMainCont"><img src=""></div>
+                  </div>
+               </div>
+            </div>
+            <!-- Uncomment the following Code to enable automation location based value filling for GeoLocation Fields -->
+            <!-- Set the mapquestURL from zohoforms.properties -->
+            <!--   -->
+            <!--Div to show error for unconfirmed users -->
+            <div id="errorDiv" style="display:none" class="errorMsgWrapper">
+               <div class="flLeft errorIcon"></div>
+               <div class="errorMsgCont">
+                  <h2>Error Occurred!</h2>
+                  <span id="errorMsgSpan">You haven't verified your email yet, click<a href="javascript:;" onclick="ZFUtil.resendMail('0');"> here </a> to receive a verification email.</span>
+               </div>
+               <div class="clearBoth"></div>
+            </div>
+         </div>
+         <!-- 'formRedirectURL' ends -->
+      </form>
+   </div>
+   <!-- 'formDiv' ends -->
+</div>
+

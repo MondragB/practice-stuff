@@ -1,0 +1,110 @@
+* {
+    box-sizing: border-box;
+  }
+  /* html,
+  body {
+    height: 100%;
+    min-height: 600px;
+  }
+  body {
+    background-color: rgba(49,29,66,0.9);
+    background-image: linear-gradient(rgba(49,29,66,0.9), #252a35);
+    height: 100%;
+    font: inherit;
+  } */
+  .carousel1 {
+    position: relative;
+    width: 600px;
+    height: 400px;
+    overflow: hidden;
+    margin: -5em 0em 0em 5em;
+
+  }
+  .carousel1:hover .slide:after,
+  .carousel1:hover .counter,
+  .carousel1:hover .slide:before {
+    opacity: 1;
+  }
+  .slide {
+    float: right;
+    position: absolute;
+    z-index: 1;
+    width: 600px;
+    height: 400px;
+    text-align: center;
+    transition: opacity 1s;
+    opacity: 1;
+    top: 150px;
+    right: 70px;
+  }
+  .slide:before {
+    display: block;
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    color: rgba(255,255,255,0.9);
+    font-size: 14px;
+    font-weight: 300;
+    z-index: 12;
+    opacity: 0;
+    transition: opacity 0.3s;
+    text-shadow: 0 0 1px #000;
+  }
+  .slide:after {
+    content: attr(slide);
+    display: block;
+    position: absolute;
+    bottom: 0;
+    transition: opacity 0.3s;
+    width: 100%;
+    height: 80px;
+    opacity: 0;
+    background-image: linear-gradient(transparent, rgba(0,0,0,0.5));
+    text-align: left;
+    text-indent: 549px;
+    line-height: 101px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.9);
+    text-shadow: 0 0 1px #000;
+  }
+  .faux-ui-facia {
+    top: 0;
+    right: 0;
+    float: right;
+    position: absolute;
+    margin-top: 0;
+    z-index: 9;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .faux-ui-facia:checked {
+    z-index: 8;
+  }
+  .faux-ui-facia:checked + .slide {
+    opacity: 0;
+  }
+  .faux-ui-facia:checked:nth-child(1):checked {
+    z-index: 9;
+  }
+  .faux-ui-facia:nth-child(1):checked {
+    float: left;
+    z-index: 9;
+  }
+  .faux-ui-facia:nth-child(1):checked + .slide {
+    opacity: 1;
+  }
+  .faux-ui-facia:nth-child(1):checked ~ .faux-ui-facia {
+    float: left;
+    z-index: 8;
+  }
+  .faux-ui-facia:nth-child(1):checked ~ .faux-ui-facia + .slide {
+    opacity: 0;
+  }
+  .faux-ui-facia:nth-child(1):checked ~ .faux-ui-facia:checked {
+    z-index: 9;
+  }
+  .faux-ui-facia:nth-child(1):checked ~ .faux-ui-facia:checked + .slide {
+    opacity: 1;
+  }
