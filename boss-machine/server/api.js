@@ -3,7 +3,7 @@ const apiRouter = express.Router();
 
 module.exports = apiRouter;
 
-const { getAllFromDatabase, addToDatabase, getFromDatabaseById, updateInstanceInDatabase } = require('./db');
+const { getAllFromDatabase, addToDatabase, getFromDatabaseById, updateInstanceInDatabase, deleteFromDatabasebyId } = require('./db');
 
 // Minion Routes
 apiRouter.get('/minions', (req, res, next) => {
@@ -29,6 +29,20 @@ apiRouter.put('/minions/:minionId', (req, res, next) => {
     if (minion) {
         let updatedMinion = updateInstanceInDatabase('minions', req.body);
         res.send(updatedMinion);
+    } else {
+        res.status(404).send();
+    }
+});
+
+apiRouter.delete('/minions/:minionId', (req, res, next) => {
+    const minion = getFromDatabaseById('minions', req.params.minionId)
+    if (minion) {
+        let deletedMinion = deleteFromDatabasebyId('minions', req.params.minionId);
+        if (deletedMinion) {
+            res.status(204).send();
+        } else {
+            res.status(404).send();
+        }
     } else {
         res.status(404).send();
     }
