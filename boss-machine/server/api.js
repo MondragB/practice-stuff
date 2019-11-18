@@ -4,6 +4,8 @@ const apiRouter = express.Router();
 module.exports = apiRouter;
 
 const { getAllFromDatabase, addToDatabase, getFromDatabaseById, updateInstanceInDatabase, deleteFromDatabasebyId, createMeeting, deleteAllFromDatabase } = require('./db');
+const checkMillionDollarIdea = require('./checkMillionDollarIdea');
+
 
 // Minion Routes
 apiRouter.get('/minions', (req, res, next) => {
@@ -53,10 +55,10 @@ apiRouter.get('/ideas', (req, res, next) => {
     res.send(getAllFromDatabase('ideas'));
 });
 
-apiRouter.post('/ideas', (req, res, next) => {
+apiRouter.post('/ideas', checkMillionDollarIdea, (req, res, next) => {
     const newIdea = addToDatabase('ideas', req.body);
     res.status(201).send(newIdea);
-});
+  });
 
 apiRouter.get('/ideas/:ideaId', (req, res, next) => {
     const idea = getFromDatabaseById('ideas', req.params.ideaId)
