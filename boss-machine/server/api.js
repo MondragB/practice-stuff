@@ -3,7 +3,7 @@ const apiRouter = express.Router();
 
 module.exports = apiRouter;
 
-const { getAllFromDatabase, addToDatabase, getFromDatabaseById, updateInstanceInDatabase, deleteFromDatabasebyId } = require('./db');
+const { getAllFromDatabase, addToDatabase, getFromDatabaseById, updateInstanceInDatabase, deleteFromDatabasebyId, createMeeting, deleteAllFromDatabase } = require('./db');
 
 // Minion Routes
 apiRouter.get('/minions', (req, res, next) => {
@@ -91,6 +91,25 @@ apiRouter.delete('/ideas/:ideaId', (req, res, next) => {
     }
 });
 
+// Meetings Route
+apiRouter.get('/meetings', (req, res, next) => {
+    res.send(getAllFromDatabase('meetings'));
+});
+
+apiRouter.post('/meetings', (req, res, next) => {
+    let newMeeting = createMeeting();
+    addToDatabase('meetings', newMeeting);
+    res.status(201).send(newMeeting);
+});
+
+apiRouter.delete('/meetings', (req, res, next) => {
+    let deleteMeetings = deleteAllFromDatabase('meetings');
+    if (deleteMeetings) {
+        res.status(204).send();
+    } else {
+        res.status(404).send();
+    }
+});
 
 
 
